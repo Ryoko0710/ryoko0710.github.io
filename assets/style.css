@@ -18,3 +18,15 @@ h2{font-size:20px;margin:24px 0 8px}
 .site-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0;color:var(--muted);font-size:14px}
 main p{margin:0 0 12px}
 .sns img{vertical-align:middle;margin:0 6px}
+/* ヘッダー背景画像 */
+.site-header {
+  height: 240px; /* 好みで変更 */
+  display: flex;
+  align-items: flex-end; /* ロゴやナビを下寄せ */
+  padding: 0 16px 16px; /* 下マージンを少し入れる */
+}
+.site-header h1 a, 
+.site-header nav a, 
+.site-header nav .lang {
+  color: white;  /* ヘッダー内の文字を白に */
+}
