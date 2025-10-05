@@ -3,27 +3,39 @@
 }
 *{box-sizing:border-box}
 html,body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font: 16px/1.7
-        "Times New Roman", "Times", "Noto Serif", "Hiragino Mincho ProN",
-        "Yu Mincho", "MS PMincho", serif;
+  margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.7 "Times New Roman","Times","Noto Serif","Hiragino Mincho ProN","Yu Mincho","MS PMincho",serif;
 }
-a{color:var(--link);text-decoration:none}
+a{color:var(--link);text-decoration:none;transition:color .2s ease}
 a:hover{color:#00b3a6;text-decoration:underline}
 .container{max-width:920px;margin:0 auto;padding:0 16px}
 
 /* ===== header (desktop base) ===== */
 .site-header{
+  position: relative;                         /* ← overlay用 */
   background: url('/assets/header-bg.jpg') no-repeat center center;
   background-size: cover;
   color:#fff;
+  overflow:hidden;                            /* 念のため */
 }
+/* 下部だけに半透明の青緑グラデーションを重ねる */
+.site-header::before{
+  content:"";
+  position:absolute; left:0; right:0; bottom:0;
+  height:40%;                                 /* ← 下から40%にだけ適用（好みで 30〜50%） */
+  background: linear-gradient(
+    to top,
+    rgba(0,139,139,0.55),                      /* 下端：濃い */
+    rgba(0,139,139,0.00)                       /* 上へ行くほど透明 */
+  );
+  z-index:0;
+}
+
 .header-inner{
   display:flex; align-items:flex-end; justify-content:space-between;
-  height:480px; padding:0 0 16px 0;
+  height:480px;                                /* ヘッダーの縦幅（PC） */
+  padding:0 0 16px 0;
+  position:relative; z-index:1;                /* ← 文字をoverlayの上に */
 }
 .site-header h1{font-size:32px;margin:0}
 .site-header h1 a,
@@ -32,6 +44,12 @@ a:hover{color:#00b3a6;text-decoration:underline}
 .site-header nav a{margin-left:16px;font-weight:600}
 .lang{margin-left:16px;color:#fff}
 
+/* タイトルは上品な欧文セリフで強調 */
+.site-header h1{
+  font-family:"Georgia","Times New Roman","Times",serif;
+  letter-spacing:.3px;
+}
+
 /* ===== body ===== */
 h2{font-size:20px;margin:24px 0 8px}
 .news{list-style:none;padding:0;margin:0}
@@ -39,8 +57,7 @@ h2{font-size:20px;margin:24px 0 8px}
 .news time{color:var(--muted);font-size:.95em;margin-right:8px}
 
 /* ===== footer ===== */
-.site-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0;
-  color:var(--muted);font-size:14px}
+.site-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0;color:var(--muted);font-size:14px}
 main p{margin:0 0 12px}
 
 /* ===== 2-column layout for pages with sidebar ===== */
@@ -62,7 +79,7 @@ main p{margin:0 0 12px}
 }
 .profile-card h3{ margin:8px 0 6px; font-size:18px; }
 .profile-card p{ margin:6px 0 10px; color:var(--fg); }
-.profile-card .mono{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:14px; color:#444; }
+.profile-card .mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:14px; color:#444; }
 .profile-links{ list-style:none; padding:0; margin:10px 0 0; }
 .profile-links li{ margin:6px 0; }
 
@@ -75,55 +92,42 @@ main p{margin:0 0 12px}
 /* ===== Mobile header layout: centered title, stacked nav ===== */
 @media (max-width: 600px){
 
-  /* safe padding for notched phones */
+  /* ノッチ端末の安全余白 */
   .site-header .container{
     padding-left: calc(20px + env(safe-area-inset-left));
     padding-right: calc(20px + env(safe-area-inset-right));
   }
 
-  /* stack and center items in header */
+  /* ヘッダーを縦積み＋中央寄せ */
   .header-inner{
     height:auto; padding:16px 0;
     flex-direction:column;
-    align-items:center;           /* ← central title */
-    gap:10px;
-    text-align:center;
+    align-items:center;
+    gap:10px; text-align:center;
   }
 
-  /* title: single-line + centered */
+  /* タイトル：中央で一行 */
   .site-header h1{ margin:0; font-size:26px; }
   .site-header h1 a{
-    display:inline-block;
-    white-space:nowrap;           /* prevent "Ryoko" / "Kino" wrap */
-    padding:4px 0;
+    display:inline-block; white-space:nowrap; padding:4px 0;
   }
 
-  /* nav: centered, wraps to 2 lines if needed */
+  /* メニュー：中央寄せ・必要に応じ折返し */
   .site-header nav{
     display:flex; flex-wrap:wrap; justify-content:center;
     gap:6px 14px; line-height:1.6;
   }
-  .site-header nav a{
-    margin-left:0; font-size:14px;
-  }
+  .site-header nav a{ margin-left:0; font-size:14px; }
 
-  /* language switch: force to next line and center */
+  /* 言語切替：一段下に中央 */
   .site-header .lang{
-    display:block;
-    width:100%;
-    margin:2px 0 0;
-    text-align:center;
-    font-size:13px;
+    display:block; width:100%; margin:2px 0 0; text-align:center; font-size:13px;
   }
 
-  /* compact body spacing on phones */
+  /* 本文側の間隔を少し詰める */
   .wrap{ margin:12px auto; gap:12px; }
   .profile-card{ padding:12px; border-radius:12px; }
   .profile-photo{ border-radius:10px; }
   h2{ font-size:18px; margin:16px 0 6px; }
   .news li{ padding:6px 0; }
-}
-.site-header h1 {
-  font-family: "Georgia", "Times New Roman", "Times", serif;
-  letter-spacing: 0.3px;
 }
