@@ -12,17 +12,17 @@ a:hover{color:#00b3a6;text-decoration:underline}
 
 /* ===== header (desktop base) ===== */
 .site-header{
-  position: relative;                         /* ← overlay用 */
+  position: relative;                         /* overlay用 */
   background: url('/assets/header-bg.jpg') no-repeat center center;
   background-size: cover;
   color:#fff;
-  overflow:hidden;                            /* 念のため */
+  overflow:hidden;
 }
 /* 下部だけに半透明の青緑グラデーションを重ねる */
 .site-header::before{
   content:"";
   position:absolute; left:0; right:0; bottom:0;
-  height:40%;                                 /* ← 下から40%にだけ適用（好みで 30〜50%） */
+  height:40%;                                 /* ← 下から40%だけ */
   background: linear-gradient(
     to top,
     rgba(0,139,139,0.55),                      /* 下端：濃い */
@@ -35,7 +35,7 @@ a:hover{color:#00b3a6;text-decoration:underline}
   display:flex; align-items:flex-end; justify-content:space-between;
   height:480px;                                /* ヘッダーの縦幅（PC） */
   padding:0 0 16px 0;
-  position:relative; z-index:1;                /* ← 文字をoverlayの上に */
+  position:relative; z-index:1;                /* 文字をoverlayの上に */
 }
 .site-header h1{font-size:32px;margin:0}
 .site-header h1 a,
@@ -52,12 +52,37 @@ a:hover{color:#00b3a6;text-decoration:underline}
 
 /* ===== body ===== */
 h2{font-size:20px;margin:24px 0 8px}
-.news{list-style:none;padding:0;margin:0}
-.news li{padding:8px 0;border-bottom:1px solid var(--line)}
-.news time{color:var(--muted);font-size:.95em;margin-right:8px}
+
+/* --- NEWS: 日付ラベル + 本文をきれいに整列 --- */
+.news{
+  list-style:none; padding:0; margin:0;
+}
+.news li{
+  display:flex; align-items:flex-start;
+  gap:0.8em;
+  padding:8px 0;
+  border-bottom:1px solid var(--line);
+}
+.news time{
+  flex:0 0 7.5em;                 /* ← 日付の固定幅（揃え） */
+  color:var(--muted);
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:.95em;
+  line-height:1.6;
+}
+.news li > *:not(time){
+  flex:1 1 auto; min-width:0;     /* 本文側（リンク含む） */
+  line-height:1.7;
+}
+/* ※ 行頭に小さな点を付けたい場合は下のコメントを有効化
+.news li::before{ content:"• "; color:var(--muted); font-weight:bold; }
+*/
 
 /* ===== footer ===== */
-.site-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0;color:var(--muted);font-size:14px}
+.site-footer{
+  border-top:1px solid var(--line); margin-top:40px; padding:24px 0;
+  color:var(--muted); font-size:14px
+}
 main p{margin:0 0 12px}
 
 /* ===== 2-column layout for pages with sidebar ===== */
@@ -124,13 +149,21 @@ main p{margin:0 0 12px}
     display:block; width:100%; margin:2px 0 0; text-align:center; font-size:13px;
   }
 
+  /* NEWS: スマホは縦積みで読みやすく */
+  .news li{
+    flex-direction:column; gap:.25em;
+  }
+  .news time{
+    flex:0 0 auto; font-size:.9em;
+  }
+
   /* 本文側の間隔を少し詰める */
   .wrap{ margin:12px auto; gap:12px; }
   .profile-card{ padding:12px; border-radius:12px; }
-  .profile-photo{ border-radius:10px; max-width: 70%; margin: 0 auto 10px; display: block;}
+  .profile-photo{ border-radius:10px; max-width:70%; margin:0 auto 10px; display:block; }
   h2{ font-size:18px; margin:16px 0 6px; }
-  .news li{ padding:6px 0; }
 }
+
 /* ====== Compact header for subpages (CV / Publications / Talks / Meeting) ====== */
 .site-header.is-compact .header-inner{
   height: 220px;                 /* サブページは浅めのヘッダー */
@@ -166,7 +199,7 @@ main p{margin:0 0 12px}
   height: 24%;                   /* トップの 40% → 24% に浅く */
   background: linear-gradient(
     to top,
-    rgba(0,139,139,0.38),        /* 濃さも少し弱める（0.38） */
+    rgba(0,139,139,0.38),        /* 濃さも少し弱める */
     rgba(0,139,139,0.00)
   );
 }
