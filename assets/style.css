@@ -249,3 +249,53 @@ main p{margin:0 0 12px}
   }
   .awards time{ font-size:.9em; }
 }
+
+/* ==== Mobile: ナビの可読性アップ（白文字×写真でも読める） ==== */
+@media (max-width: 600px){
+  .site-header nav{
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap: 8px 10px;
+  }
+  .site-header nav a,
+  .site-header .lang{
+    font-size: 16px;              /* ← 少し大きく */
+    font-weight: 700;             /* ← 太めで視認性UP */
+    line-height: 1.3;
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 999px;         /* ← pill 形状 */
+    background: rgba(0,0,0,.32);  /* ← 写真上でも読める半透明 */
+    text-shadow: 0 1px 2px rgba(0,0,0,.35);
+  }
+  .site-header nav a:hover,
+  .site-header .lang:hover{
+    background: rgba(0,0,0,.42);
+  }
+
+  /* コンパクトヘッダーでも同様の見やすさ */
+  .site-header.is-compact nav{ gap: 8px 10px; }
+  .site-header.is-compact nav a,
+  .site-header.is-compact .lang{
+    font-size: 16px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.28);
+    text-shadow: 0 1px 2px rgba(0,0,0,.35);
+  }
+}
+
+/* ==== Mobile: 本文のサイズ/行間を控えめに ==== */
+@media (max-width: 600px){
+  html { font-size: 15px; }                 /* 16px→15pxに微調整 */
+  body { -webkit-text-size-adjust: 100%; }
+
+  .content { font-size: 0.98rem; }
+  .content p, .content li { line-height: 1.65; }
+
+  .news li > span,
+  .awards li > span { line-height: 1.7; }
+  .news time,
+  .awards time { font-size: .92em; }
+}
