@@ -232,3 +232,20 @@ main p{margin:0 0 12px}
     max-height: 400px;
   }
 }
+/* ===== Fix: NEWS text scaling / link distortion on mobile ===== */
+.news li > span {
+  display: block;              /* ← inline-blockをblockに変更で高さ安定 */
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.8;
+  word-break: normal;          /* ← keep-allを外すと英語＋日本語混在に自然 */
+  overflow-wrap: anywhere;     /* 長い単語だけ自動折返し */
+  font-size: 1em;              /* スマホの自動拡大を防ぐ */
+  -webkit-text-size-adjust: 100%; /* iOSの自動文字拡大防止 */
+}
+
+/* 強調・リンクの中でもフォントを固定 */
+.news li a, .news li em {
+  font-size: inherit !important;
+  line-height: inherit;
+}
