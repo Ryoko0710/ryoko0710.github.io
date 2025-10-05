@@ -131,3 +131,67 @@ main p{margin:0 0 12px}
   h2{ font-size:18px; margin:16px 0 6px; }
   .news li{ padding:6px 0; }
 }
+/* ====== Compact header for subpages (CV / Publications / Talks / Meeting) ====== */
+.site-header.is-compact .header-inner{
+  height: 220px;                 /* サブページは浅めのヘッダー */
+  padding: 0 0 14px 0;
+  flex-direction: row;           /* タイトルとナビを横並び維持 */
+  align-items: flex-end;         /* 下寄せ */
+  gap: 12px;
+}
+
+/* タイトルは1行で切らさない＋少し大きめに戻す */
+.site-header.is-compact h1{ margin:0; font-size: 28px; }
+.site-header.is-compact h1 a{ white-space: nowrap; }
+
+/* ナビの文字を少し大きく＆詰めて折返しにくく */
+.site-header.is-compact nav{
+  display: flex;
+  flex-wrap: nowrap;             /* ← まず折返さない */
+  align-items: center;
+}
+.site-header.is-compact nav a{
+  margin-left: 14px;             /* 既存 16px → 14px に詰める */
+  font-size: 16px;               /* 既存より少し大きく */
+}
+
+/* 言語切替はナビの最後に、文字も見やすく */
+.site-header.is-compact .lang{
+  margin-left: 14px;
+  font-size: 15px;
+}
+
+/* コンパクト版では下部オーバーレイを弱める/狭める（文字に被らないように） */
+.site-header.is-compact::before{
+  height: 24%;                   /* トップの 40% → 24% に浅く */
+  background: linear-gradient(
+    to top,
+    rgba(0,139,139,0.38),        /* 濃さも少し弱める（0.38） */
+    rgba(0,139,139,0.00)
+  );
+}
+
+/* SP幅でもコンパクト版の見やすさを維持 */
+@media (max-width: 600px){
+  .site-header.is-compact .header-inner{
+    height: auto;                /* スマホは可変 */
+    padding: 14px 0;
+    flex-direction: column;      /* ← スマホは縦積み */
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .site-header.is-compact h1{ font-size: 22px; }
+  .site-header.is-compact nav{
+    flex-wrap: wrap;             /* スマホは折返しOK */
+    justify-content: center;
+    gap: 6px 12px;
+  }
+  .site-header.is-compact nav a{ margin-left: 0; font-size: 14px; }
+  .site-header.is-compact .lang{
+    display:block; width:100%; margin-top:2px; text-align:center; font-size:13px;
+  }
+  .site-header.is-compact::before{
+    height: 40%;                 /* スマホでは少し広めに戻すと可読性UP */
+  }
+}
