@@ -251,3 +251,57 @@ main p{margin:0 0 12px}
   .awards li { flex-direction: column; gap: .25em; }
   .awards time { flex: 0 0 auto; font-size: .9em; }
 }
+/* ===== Awards section: NEWSと同じ2カラム(Grid)整列 ===== */
+.awards{
+  list-style:none;
+  margin:0;
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fafafa;
+}
+
+/* 左：日付固定 / 右：本文可変（NEWSと同じ設計） */
+.awards li{
+  display:grid !important;             /* ← 以前のflex指定を確実に打ち消す */
+  grid-template-columns: 6.5em 1fr;    /* 日付幅は好みで 6.0–7.5em 調整可 */
+  column-gap:.8em;
+  align-items:start;
+  padding:8px 0;
+  border-bottom:1px solid var(--line);
+}
+.awards li:last-child{ border-bottom:none; }
+
+/* 日付 */
+.awards time{
+  grid-column:1;
+  color:var(--muted);
+  font-family:"Times New Roman","Times","Noto Serif","Hiragino Mincho ProN","Yu Mincho","MS PMincho",serif;
+  font-size:.95em;
+  line-height:1.7;
+}
+
+/* 本文（リンク・em含めて一塊で折返し） */
+.awards li > span{
+  grid-column:2;
+  display:block;
+  line-height:1.8;
+  word-break:normal;
+  overflow-wrap:anywhere;              /* 長い英語/DOIだけ自然に折る */
+  font-size:1em;
+  -webkit-text-size-adjust:100%;
+}
+.awards li a, .awards li em{
+  font-size:inherit !important;
+  line-height:inherit;
+}
+
+/* スマホでも“ぶら下げインデント”を維持（縦積みにしない） */
+@media (max-width:600px){
+  .awards li{
+    grid-template-columns: 6.5em 1fr;
+    column-gap:.6em;
+    padding:6px 0;
+  }
+  .awards time{ font-size:.9em; }
+}
