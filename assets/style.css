@@ -18,7 +18,7 @@ a:hover{text-decoration:underline}
   display:flex; align-items:flex-end; justify-content:space-between;
   height:240px; padding:0 0 16px 0;
 }
-.site-header h1{font-size:20px;margin:0}
+.site-header h1{font-size:32px;margin:0}
 .site-header h1 a,
 .site-header nav a,
 .site-header .lang{color:#fff}
@@ -84,7 +84,7 @@ main p{margin:0 0 12px}
   }
 
   /* title: single-line + centered */
-  .site-header h1{ margin:0; font-size:20px; }
+  .site-header h1{ margin:0; font-size:26px; }
   .site-header h1 a{
     display:inline-block;
     white-space:nowrap;           /* prevent "Ryoko" / "Kino" wrap */
