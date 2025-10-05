@@ -90,3 +90,44 @@ main p{margin:0 0 12px}
     margin-left: 2px; /* お好みで 0〜6px くらいに */
   }
 }
+
+
+/* ===== Mobile header layout fix ===== */
+@media (max-width: 600px){
+  /* ヘッダー全体の左右余白を多めに＆安全域考慮 */
+  .site-header .container{
+    padding-left: calc(20px + env(safe-area-inset-left));
+    padding-right: calc(20px + env(safe-area-inset-right));
+  }
+
+  /* タイトル＋ナビを縦積みにする */
+  .header-inner{
+    height: auto;                /* 固定高さを解除 */
+    padding: 16px 0;             /* 余白を適度に */
+    flex-direction: column;      /* ← 横並び→縦並び */
+    align-items: flex-start;     /* 左寄せ */
+    gap: 8px;                    /* タイトルとナビの間隔 */
+  }
+
+  /* タイトルを1行で切らさない＆字詰め */
+  .site-header h1{ margin: 0; }
+  .site-header h1 a{
+    display: inline-block;
+    white-space: nowrap;         /* ← 改行禁止 */
+    letter-spacing: .2px;        /* お好みで微調整 */
+    padding: 2px 0;
+  }
+
+  /* ナビは折返し可＋行間隔を保つ */
+  .site-header nav{
+    display: flex;
+    flex-wrap: wrap;             /* ← 必要に応じて折返し */
+    gap: 6px 12px;               /* 行間/字間 */
+  }
+  .site-header nav a,
+  .site-header .lang{
+    margin-left: 0;              /* 既存の左マージンを相殺 */
+    font-size: 14px;             /* 少しだけ小さく */
+    line-height: 1.4;
+  }
+}
