@@ -33,3 +33,30 @@ h2{font-size:20px;margin:24px 0 8px}
 .site-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0;
   color:var(--muted);font-size:14px}
 main p{margin:0 0 12px}
+
+/* === 2-column layout for pages with sidebar === */
+.wrap{
+  max-width:1100px; margin:24px auto; padding:0 16px;
+  display:flex; gap:24px;
+}
+.content{ flex:1; min-width:0; }
+.sidebar{ width:280px; flex:0 0 280px; }
+@media (max-width:960px){
+  .wrap{ flex-direction:column; }
+  .sidebar{ width:auto; }
+}
+
+/* === Profile card === */
+.profile-card{
+  background:#fff; border:1px solid var(--line); border-radius:16px;
+  padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.profile-photo{
+  width:100%; aspect-ratio:1/1; object-fit:cover;
+  border-radius:12px; display:block; margin-bottom:12px;
+}
+.profile-card h3{ margin:8px 0 6px; font-size:18px; }
+.profile-card p{ margin:6px 0 10px; color:var(--fg); }
+.profile-card .mono{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:14px; color:#444; }
+.profile-links{ list-style:none; padding:0; margin:10px 0 0; }
+.profile-links li{ margin:6px 0; }

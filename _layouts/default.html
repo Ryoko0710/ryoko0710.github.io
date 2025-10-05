@@ -11,9 +11,18 @@
 </head>
 <body>
   {% include header.html %}
-  <main class="container">
-    {{ content }}
-  </main>
+
+  <div class="wrap">
+    {% if page.sidebar == 'profile' %}
+      <aside class="sidebar">
+        {% include sidebar-profile.html %}
+      </aside>
+    {% endif %}
+    <main class="content">
+      {{ content }}
+    </main>
+  </div>
+
   {% include footer.html %}
 </body>
 </html>
