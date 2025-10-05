@@ -100,7 +100,7 @@ main p{margin:0 0 12px}
 
   /* ヘッダーを縦積み＋中央寄せ */
   .header-inner{
-    height:auto; padding:16px 0;
+    height:200px; padding:16px 0;
     flex-direction:column;
     align-items:center;
     gap:10px; text-align:center;
@@ -127,7 +127,7 @@ main p{margin:0 0 12px}
   /* 本文側の間隔を少し詰める */
   .wrap{ margin:12px auto; gap:12px; }
   .profile-card{ padding:12px; border-radius:12px; }
-  .profile-photo{ border-radius:10px; }
+  .profile-photo{ border-radius:10px; max-width: 80%; margin: 0 auto 10px; display: block;}
   h2{ font-size:18px; margin:16px 0 6px; }
   .news li{ padding:6px 0; }
 }
