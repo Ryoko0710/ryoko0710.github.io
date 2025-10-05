@@ -188,3 +188,47 @@ main p{margin:0 0 12px}
   .site-header.is-compact .lang{ display:block; width:100%; margin-top:2px; text-align:center; font-size:13px; }
   .site-header.is-compact::before{ height:40%; }
 }
+
+/* ===== NEWS section: 固定高さ＋内部スクロール ===== */
+.news {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 320px;        /* ← 高さを固定（好みで 250〜400px 程度に調整） */
+  overflow-y: auto;          /* ← 縦方向だけスクロール可 */
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fafafa;       /* 少し明るい背景で独立感 */
+}
+
+/* スクロールバーを上品に（Chrome / Edge用） */
+.news::-webkit-scrollbar {
+  width: 8px;
+}
+.news::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.25);
+  border-radius: 4px;
+}
+.news::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.4);
+}
+
+/* 各項目の区切りや余白 */
+.news li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8em;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.news li:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 600px){
+  .news {
+    max-height: 400px;
+  }
+}
