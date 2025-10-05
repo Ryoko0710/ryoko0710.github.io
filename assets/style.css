@@ -60,3 +60,20 @@ main p{margin:0 0 12px}
 .profile-card .mono{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:14px; color:#444; }
 .profile-links{ list-style:none; padding:0; margin:10px 0 0; }
 .profile-links li{ margin:6px 0; }
+
+/* スマホ最適化 */
+@media (max-width: 600px){
+  .header-inner{ height: 160px; padding-bottom: 12px; }
+  .site-header h1{ font-size: 18px; }
+  .site-header nav a{ margin-left: 12px; font-size: 14px; }
+  .wrap{ margin: 12px auto; gap: 12px; }
+  .profile-card{ padding: 12px; border-radius: 12px; }
+  .profile-photo{ border-radius: 10px; }
+  h2{ font-size: 18px; margin: 16px 0 6px; }
+  .news li{ padding: 6px 0; }
+}
+
+@media (max-width: 480px){
+  .site-header nav{ display: flex; flex-wrap: wrap; gap: 8px 12px; }
+  .site-header nav a, .site-header .lang{ margin-left: 0; }
+}
