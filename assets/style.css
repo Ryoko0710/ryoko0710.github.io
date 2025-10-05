@@ -8,14 +8,16 @@ a{color:var(--link);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:920px;margin:0 auto;padding:0 16px}
 
-/* header */
+/* ===== header (desktop base) ===== */
 .site-header{
   background: url('/assets/header-bg.jpg') no-repeat center center;
   background-size: cover;
   color:#fff;
 }
-.header-inner{display:flex;align-items:flex-end;justify-content:space-between;
-  height:240px;padding:0 0 16px 0;}
+.header-inner{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  height:240px; padding:0 0 16px 0;
+}
 .site-header h1{font-size:20px;margin:0}
 .site-header h1 a,
 .site-header nav a,
@@ -23,30 +25,26 @@ a:hover{text-decoration:underline}
 .site-header nav a{margin-left:16px;font-weight:600}
 .lang{margin-left:16px;color:#fff}
 
-/* body */
+/* ===== body ===== */
 h2{font-size:20px;margin:24px 0 8px}
 .news{list-style:none;padding:0;margin:0}
 .news li{padding:8px 0;border-bottom:1px solid var(--line)}
 .news time{color:var(--muted);font-size:.95em;margin-right:8px}
 
-/* footer */
+/* ===== footer ===== */
 .site-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0;
   color:var(--muted);font-size:14px}
 main p{margin:0 0 12px}
 
-/* === 2-column layout for pages with sidebar === */
+/* ===== 2-column layout for pages with sidebar ===== */
 .wrap{
   max-width:1100px; margin:24px auto; padding:0 16px;
   display:flex; gap:24px;
 }
 .content{ flex:1; min-width:0; }
 .sidebar{ width:280px; flex:0 0 280px; }
-@media (max-width:960px){
-  .wrap{ flex-direction:column; }
-  .sidebar{ width:auto; }
-}
 
-/* === Profile card === */
+/* ===== Profile card ===== */
 .profile-card{
   background:#fff; border:1px solid var(--line); border-radius:16px;
   padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.04);
@@ -61,73 +59,60 @@ main p{margin:0 0 12px}
 .profile-links{ list-style:none; padding:0; margin:10px 0 0; }
 .profile-links li{ margin:6px 0; }
 
-/* スマホ最適化 */
-@media (max-width: 600px){
-  .header-inner{ height: 160px; padding-bottom: 12px; }
-  .site-header h1{ font-size: 18px; }
-  .site-header nav a{ margin-left: 12px; font-size: 14px; }
-  .wrap{ margin: 12px auto; gap: 12px; }
-  .profile-card{ padding: 12px; border-radius: 12px; }
-  .profile-photo{ border-radius: 10px; }
-  h2{ font-size: 18px; margin: 16px 0 6px; }
-  .news li{ padding: 6px 0; }
+/* ===== responsive tweaks ===== */
+@media (max-width:960px){
+  .wrap{ flex-direction:column; }
+  .sidebar{ width:auto; }
 }
 
-@media (max-width: 480px){
-  .site-header nav{ display: flex; flex-wrap: wrap; gap: 8px 12px; }
-  .site-header nav a, .site-header .lang{ margin-left: 0; }
-}
-
-/* --- Mobile header safe padding --- */
+/* ===== Mobile header layout: centered title, stacked nav ===== */
 @media (max-width: 600px){
-  /* ヘッダー内の左右余白を増やす（iPhoneのセーフエリアも考慮） */
-  .site-header .container{
-    padding-left: calc(20px + env(safe-area-inset-left));
-    padding-right: calc(20px + env(safe-area-inset-right));
-  }
-  /* タイトルの当たりを少し内側に */
-  .site-header h1{
-    margin-left: 2px; /* お好みで 0〜6px くらいに */
-  }
-}
 
-
-/* ===== Mobile header layout fix ===== */
-@media (max-width: 600px){
-  /* ヘッダー全体の左右余白を多めに＆安全域考慮 */
+  /* safe padding for notched phones */
   .site-header .container{
     padding-left: calc(20px + env(safe-area-inset-left));
     padding-right: calc(20px + env(safe-area-inset-right));
   }
 
-  /* タイトル＋ナビを縦積みにする */
+  /* stack and center items in header */
   .header-inner{
-    height: auto;                /* 固定高さを解除 */
-    padding: 16px 0;             /* 余白を適度に */
-    flex-direction: column;      /* ← 横並び→縦並び */
-    align-items: flex-start;     /* 左寄せ */
-    gap: 8px;                    /* タイトルとナビの間隔 */
+    height:auto; padding:16px 0;
+    flex-direction:column;
+    align-items:center;           /* ← central title */
+    gap:10px;
+    text-align:center;
   }
 
-  /* タイトルを1行で切らさない＆字詰め */
-  .site-header h1{ margin: 0; }
+  /* title: single-line + centered */
+  .site-header h1{ margin:0; font-size:20px; }
   .site-header h1 a{
-    display: inline-block;
-    white-space: nowrap;         /* ← 改行禁止 */
-    letter-spacing: .2px;        /* お好みで微調整 */
-    padding: 2px 0;
+    display:inline-block;
+    white-space:nowrap;           /* prevent "Ryoko" / "Kino" wrap */
+    padding:4px 0;
   }
 
-  /* ナビは折返し可＋行間隔を保つ */
+  /* nav: centered, wraps to 2 lines if needed */
   .site-header nav{
-    display: flex;
-    flex-wrap: wrap;             /* ← 必要に応じて折返し */
-    gap: 6px 12px;               /* 行間/字間 */
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap:6px 14px; line-height:1.6;
   }
-  .site-header nav a,
+  .site-header nav a{
+    margin-left:0; font-size:14px;
+  }
+
+  /* language switch: force to next line and center */
   .site-header .lang{
-    margin-left: 0;              /* 既存の左マージンを相殺 */
-    font-size: 14px;             /* 少しだけ小さく */
-    line-height: 1.4;
+    display:block;
+    width:100%;
+    margin:2px 0 0;
+    text-align:center;
+    font-size:13px;
   }
+
+  /* compact body spacing on phones */
+  .wrap{ margin:12px auto; gap:12px; }
+  .profile-card{ padding:12px; border-radius:12px; }
+  .profile-photo{ border-radius:10px; }
+  h2{ font-size:18px; margin:16px 0 6px; }
+  .news li{ padding:6px 0; }
 }
