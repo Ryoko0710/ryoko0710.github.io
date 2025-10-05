@@ -77,3 +77,16 @@ main p{margin:0 0 12px}
   .site-header nav{ display: flex; flex-wrap: wrap; gap: 8px 12px; }
   .site-header nav a, .site-header .lang{ margin-left: 0; }
 }
+
+/* --- Mobile header safe padding --- */
+@media (max-width: 600px){
+  /* ヘッダー内の左右余白を増やす（iPhoneのセーフエリアも考慮） */
+  .site-header .container{
+    padding-left: calc(20px + env(safe-area-inset-left));
+    padding-right: calc(20px + env(safe-area-inset-right));
+  }
+  /* タイトルの当たりを少し内側に */
+  .site-header h1{
+    margin-left: 2px; /* お好みで 0〜6px くらいに */
+  }
+}
