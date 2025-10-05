@@ -81,6 +81,7 @@ h2{font-size:20px;margin:24px 0 8px}
   font-family:"Times New Roman","Times","Noto Serif","Hiragino Mincho ProN","Yu Mincho","MS PMincho",serif;
   font-size:.95em;
   line-height:1.7;
+  white-space:nowrap;
 }
 
 /* 右カラム（本文全体） */
@@ -93,7 +94,6 @@ h2{font-size:20px;margin:24px 0 8px}
   font-size:1em;
   -webkit-text-size-adjust:100%;/* iOSの自動拡大を抑止 */
 }
-/* 文中のリンクやemも本文と同じスケールで */
 .news li a, .news li em{
   font-size:inherit !important;
   line-height:inherit;
@@ -164,7 +164,6 @@ main p{margin:0 0 12px}
   .profile-photo{ border-radius:10px; max-width:70%; margin:0 auto 10px; display:block; }
   h2{ font-size:18px; margin:16px 0 6px; }
 
-  /* NEWS：スマホでも“ぶら下げインデント”を維持（縦積みにしない） */
   .news{ max-height:400px; }
   .news li{
     grid-template-columns: 7.5em 1fr;
@@ -199,59 +198,7 @@ main p{margin:0 0 12px}
   .site-header.is-compact::before{ height:40%; }
 }
 
-/* ===== Awards section (same layout as NEWS) ===== */
-.awards {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fafafa;
-  padding: 8px 12px;
-}
-
-.awards li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8em;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--line);
-  flex-wrap: wrap;
-}
-.awards li:last-child { border-bottom: none; }
-
-.awards time {
-  flex: 0 0 6em;  /* 日付幅を調整 */
-  color: var(--muted);
-  font-family: "Times New Roman","Times","Noto Serif",
-               "Hiragino Mincho ProN","Yu Mincho","MS PMincho",serif;
-  font-size: .95em;
-  line-height: 1.7;
-}
-
-.awards li span {
-  display: inline-block;
-  flex: 1 1 auto;
-  min-width: 0;
-  line-height: 1.8;
-  word-break: normal;
-  overflow-wrap: anywhere;
-  font-size: 1em;
-  -webkit-text-size-adjust: 100%;
-}
-
-.awards li a {
-  display: inline;
-  color: var(--link);
-  text-decoration: none;
-}
-.awards li a:hover { text-decoration: underline; }
-
-@media (max-width: 600px){
-  .awards li { flex-direction: column; gap: .25em; }
-  .awards time { flex: 0 0 auto; font-size: .9em; }
-}
-/* ===== Awards section: NEWSと同じ2カラム(Grid)整列 ===== */
+/* ===== Awards section: NEWSと同一レイアウト（スクロールなし） ===== */
 .awards{
   list-style:none;
   margin:0;
@@ -260,11 +207,10 @@ main p{margin:0 0 12px}
   border-radius:8px;
   background:#fafafa;
 }
-
-/* 左：日付固定 / 右：本文可変（NEWSと同じ設計） */
+/* NEWSと同じ：Grid 2カラム（左:7.5em, 右:自動） */
 .awards li{
-  display:grid !important;             /* ← 以前のflex指定を確実に打ち消す */
-  grid-template-columns: 6.5em 1fr;    /* 日付幅は好みで 6.0–7.5em 調整可 */
+  display:grid;
+  grid-template-columns: 7.5em 1fr;
   column-gap:.8em;
   align-items:start;
   padding:8px 0;
@@ -272,22 +218,20 @@ main p{margin:0 0 12px}
 }
 .awards li:last-child{ border-bottom:none; }
 
-/* 日付 */
 .awards time{
   grid-column:1;
   color:var(--muted);
   font-family:"Times New Roman","Times","Noto Serif","Hiragino Mincho ProN","Yu Mincho","MS PMincho",serif;
   font-size:.95em;
   line-height:1.7;
+  white-space:nowrap;
 }
-
-/* 本文（リンク・em含めて一塊で折返し） */
 .awards li > span{
   grid-column:2;
   display:block;
   line-height:1.8;
   word-break:normal;
-  overflow-wrap:anywhere;              /* 長い英語/DOIだけ自然に折る */
+  overflow-wrap:anywhere;
   font-size:1em;
   -webkit-text-size-adjust:100%;
 }
@@ -296,10 +240,10 @@ main p{margin:0 0 12px}
   line-height:inherit;
 }
 
-/* スマホでも“ぶら下げインデント”を維持（縦積みにしない） */
+/* スマホ時もNEWSと同じ幅・見え方（縦積みにしない） */
 @media (max-width:600px){
   .awards li{
-    grid-template-columns: 6.5em 1fr;
+    grid-template-columns: 7.5em 1fr;
     column-gap:.6em;
     padding:6px 0;
   }
