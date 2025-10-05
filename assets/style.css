@@ -2,8 +2,15 @@
   --bg:#ffffff; --fg:#111; --muted:#666; --link:#1a73e8; --line:#e6e6e6;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
-  font:16px/1.6 system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Arial,sans-serif}
+html,body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.7
+        "Times New Roman", "Times", "Noto Serif", "Hiragino Mincho ProN",
+        "Yu Mincho", "MS PMincho", serif;
+}
 a{color:var(--link);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:920px;margin:0 auto;padding:0 16px}
@@ -115,4 +122,8 @@ main p{margin:0 0 12px}
   .profile-photo{ border-radius:10px; }
   h2{ font-size:18px; margin:16px 0 6px; }
   .news li{ padding:6px 0; }
+}
+.site-header h1 {
+  font-family: "Georgia", "Times New Roman", "Times", serif;
+  letter-spacing: 0.3px;
 }
