@@ -4,10 +4,73 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ page.title | default: "Ryoko Kino" }}</title>
+
+  {%- comment -%} ---------- Title ---------- {%- endcomment -%}
+  <title>
+    {%- if page.title -%}{{ page.title }} | {{ site.title | default: "Ryoko Kino" }}
+    {%- else -%}{{ site.title | default: "Ryoko Kino" }}
+    {%- endif -%}
+  </title>
+
   <link rel="stylesheet" href="/assets/style.css">
-  {% if page.hreflang_ja %}<link rel="alternate" hreflang="ja" href="{{ page.hreflang_ja }}">{% endif %}
-  {% if page.hreflang_en %}<link rel="alternate" hreflang="en" href="{{ page.hreflang_en }}">{% endif %}
+
+  {%- comment -%} ---------- Basic Meta ---------- {%- endcomment -%}
+  <meta name="description" content="{{ page.description | default: site.description | default: 'Ryoko Kino | Hypernuclear physics (hypertriton, decay-pion spectroscopy, MAMI, J-PARC, RIKEN)' }}">
+  <meta name="author" content="{{ site.author.name | default: 'Ryoko Kino' }}">
+
+  {%- comment -%} ---------- Canonical ---------- {%- endcomment -%}
+  <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html','' }}">
+
+  {%- comment -%} ---------- hreflang (front matter優先) ---------- {%- endcomment -%}
+  {%- if page.hreflang_ja %}<link rel="alternate" hreflang="ja" href="{{ page.hreflang_ja }}">{% endif -%}
+  {%- if page.hreflang_en %}<link rel="alternate" hreflang="en" href="{{ page.hreflang_en }}">{% endif -%}
+  {%- if page.hreflang_ja or page.hreflang_en -%}
+    <link rel="alternate" hreflang="x-default" href="{{ page.hreflang_en | default: page.hreflang_ja }}">
+  {%- endif -%}
+
+  {%- comment -%} ---------- Open Graph / Twitter ---------- {%- endcomment -%}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ page.title | default: site.title | default: 'Ryoko Kino' }}">
+  <meta property="og:description" content="{{ page.description | default: site.description | default: 'Ryoko Kino | Hypernuclear physics' }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url | replace:'index.html','' }}">
+  {%- if page.og_image or site.og_image -%}
+    <meta property="og:image" content="{{ page.og_image | default: site.og_image }}">
+  {%- endif -%}
+  <meta name="twitter:card" content="summary_large_image">
+  {%- if site.twitter_username -%}
+    <meta name="twitter:site" content="@{{ site.twitter_username }}">
+  {%- endif -%}
+
+  {%- comment -%} ---------- robots（任意でnoindexしたいページ用） ---------- {%- endcomment -%}
+  {%- if page.noindex -%}
+    <meta name="robots" content="noindex, nofollow">
+  {%- endif -%}
+
+  {%- comment -%} ---------- jekyll-seo-tag（入っていれば自動で追加メタを出す） ---------- {%- endcomment -%}
+  {%- if site.plugins and site.plugins contains 'jekyll-seo-tag' -%}
+    {% seo %}
+  {%- endif -%}
+
+  {%- comment -%} ---------- JSON-LD(Person) 構造化データ ---------- {%- endcomment -%}
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"{{ site.author.name | default: 'Ryoko Kino' }}",
+    "url":"{{ site.url | default: 'https://ryoko0710.github.io' }}",
+    "jobTitle":"{{ site.author.job_title | default: 'JSPS Postdoctoral Fellow' }}",
+    "affiliation":{
+      "@type":"Organization",
+      "name":"{{ site.author.affiliation | default: 'RIKEN Nishina Center for Accelerator-Based Science' }}"
+    },
+    "sameAs":[
+      {% if site.author.researchgate %}"{{ site.author.researchgate }}",{% endif %}
+      {% if site.author.orcid %}"{{ site.author.orcid }}",{% endif %}
+      {% if site.author.scholar %}"{{ site.author.scholar }}",{% endif %}
+      {% if site.github_username %}"https://github.com/{{ site.github_username }}"{% endif %}
+    ]
+  }
+  </script>
 </head>
 <body>
   {% include header.html %}

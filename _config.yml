@@ -1,2 +1,20 @@
 theme: null
 markdown: kramdown
+
+title: "Ryoko Kino"
+url: "https://ryoko0710.github.io"
+github_username: "Ryoko0710"
+
+author:
+  name: "Ryoko Kino"
+  job_title: "JSPS Postdoctoral Fellow"
+  affiliation: "RIKEN Nishina Center for Accelerator-Based Science"
+  researchgate: "https://www.researchgate.net/profile/Ryoko-Kino"
+  orcid: "https://orcid.org/0000-0000-0000-0000"   # あれば
+  scholar: "https://scholar.google.com/citations?user=XXXX"  # あれば
+
+description: "Hypernuclear physics (hypertriton, decay-pion spectroscopy, MAMI, J-PARC, RIKEN)."
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
