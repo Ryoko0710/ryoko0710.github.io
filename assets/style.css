@@ -18,6 +18,7 @@ a:hover{color:#00b3a6;text-decoration:underline}
   color:#fff;
   overflow:hidden;
 }
+/* 下部だけに半透明の青緑グラデーションを重ねる */
 .site-header::before{
   content:"";
   position:absolute; left:0; right:0; bottom:0;
@@ -37,6 +38,7 @@ a:hover{color:#00b3a6;text-decoration:underline}
 .site-header nav a{margin-left:16px;font-weight:600}
 .lang{margin-left:16px;color:#fff}
 
+/* タイトルは上品な欧文セリフで強調 */
 .site-header h1{
   font-family:"Georgia","Times New Roman","Times",serif;
   letter-spacing:.3px;
@@ -45,57 +47,57 @@ a:hover{color:#00b3a6;text-decoration:underline}
 /* ===== body ===== */
 h2{font-size:20px;margin:24px 0 8px}
 
-/* ===== NEWS section (fixed) ===== */
+/* ===== NEWS section: 固定高さ＋スクロール（全体枠） ===== */
 .news{
-  list-style: none;             /* ← 点(•)を消す */
-  padding: 0;
-  margin: 0;
+  list-style:none;
+  margin:0;
+  padding:8px 12px;
+  max-height:320px;             /* ← 好みで 250〜400px に調整 */
+  overflow-y:auto;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fafafa;
 }
+/* スクロールバー（WebKit系） */
+.news::-webkit-scrollbar { width:8px; }
+.news::-webkit-scrollbar-thumb { background:rgba(0,0,0,.25); border-radius:4px; }
+.news::-webkit-scrollbar-thumb:hover { background:rgba(0,0,0,.4); }
 
+/* ===== NEWS項目：Gridで “日付固定幅 / 本文可変” ===== */
 .news li{
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8em;                   /* ← 日付と本文の“間”の見た目の改行/余白 */
-  padding: 8px 0;
-  border-bottom: 1px solid var(--line);
-  flex-wrap: wrap;              /* 全体として折返しOK（リンク内外でズレない） */
+  display:grid;
+  grid-template-columns: 7.5em 1fr; /* 左:日付(固定) 右:本文(可変) */
+  column-gap:.8em;
+  align-items:start;
+  padding:8px 0;
+  border-bottom:1px solid var(--line);
 }
+.news li:last-child{ border-bottom:none; }
 
-/* 日付ラベル（フォントを本文と同じTimes系に統一） */
+/* 左カラム（日付） */
 .news time{
-  flex: 0 0 7.5em;              /* ← 日付の固定幅（縦揃え） */
-  color: var(--muted);
-  font-family: "Times New Roman","Times","Noto Serif",
-               "Hiragino Mincho ProN","Yu Mincho","MS PMincho",serif;
-  font-size: .95em;
-  line-height: 1.7;
+  grid-column:1;
+  color:var(--muted);
+  font-family:"Times New Roman","Times","Noto Serif","Hiragino Mincho ProN","Yu Mincho","MS PMincho",serif;
+  font-size:.95em;
+  line-height:1.7;
 }
 
-/* 本文ブロック（リンク含む文全体を1ブロックで扱う） */
-.news li > span,
-.news li .entry{
-  display: inline-block;
-  flex: 1 1 auto;
-  min-width: 0;
-  line-height: 1.8;
-  word-break: keep-all;         /* 英単語途中で改行しない */
-  overflow-wrap: break-word;    /* ただし長いURL等は自然に折る */
+/* 右カラム（本文全体） */
+.news li > span{
+  grid-column:2;
+  display:block;
+  line-height:1.8;
+  word-break:normal;            /* 自然な改行 */
+  overflow-wrap:anywhere;       /* 長いURL/DOIのみ適宜折返し */
+  font-size:1em;
+  -webkit-text-size-adjust:100%;/* iOSの自動拡大を抑止 */
 }
-
-/* 文中リンクは“文の一部”として扱う（段差を作らない） */
-.news li a{
-  display: inline;
-  color: var(--link);
-  text-decoration: none;
+/* 文中のリンクやemも本文と同じスケールで */
+.news li a, .news li em{
+  font-size:inherit !important;
+  line-height:inherit;
 }
-.news li a:hover{ text-decoration: underline; }
-
-/* スマホは日付→本文の縦並びに（読みやすさ優先） */
-@media (max-width: 600px){
-  .news li{ flex-direction: column; gap: .25em; }
-  .news time{ flex: 0 0 auto; font-size: .9em; }
-}
-
 
 /* ===== footer ===== */
 .site-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0;color:var(--muted);font-size:14px}
@@ -161,7 +163,15 @@ main p{margin:0 0 12px}
   .profile-card{ padding:12px; border-radius:12px; }
   .profile-photo{ border-radius:10px; max-width:70%; margin:0 auto 10px; display:block; }
   h2{ font-size:18px; margin:16px 0 6px; }
-  .news li{ padding:6px 0; }
+
+  /* NEWS：スマホでも“ぶら下げインデント”を維持（縦積みにしない） */
+  .news{ max-height:400px; }
+  .news li{
+    grid-template-columns: 7.5em 1fr;
+    column-gap:.6em;
+    padding:6px 0;
+  }
+  .news time{ font-size:.9em; }
 }
 
 /* ====== Compact header for subpages ====== */
@@ -187,65 +197,4 @@ main p{margin:0 0 12px}
   .site-header.is-compact nav a{ margin-left:0; font-size:14px; }
   .site-header.is-compact .lang{ display:block; width:100%; margin-top:2px; text-align:center; font-size:13px; }
   .site-header.is-compact::before{ height:40%; }
-}
-
-/* ===== NEWS section: 固定高さ＋内部スクロール ===== */
-.news {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 320px;        /* ← 高さを固定（好みで 250〜400px 程度に調整） */
-  overflow-y: auto;          /* ← 縦方向だけスクロール可 */
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 8px 12px;
-  background: #fafafa;       /* 少し明るい背景で独立感 */
-}
-
-/* スクロールバーを上品に（Chrome / Edge用） */
-.news::-webkit-scrollbar {
-  width: 8px;
-}
-.news::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.25);
-  border-radius: 4px;
-}
-.news::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.4);
-}
-
-/* 各項目の区切りや余白 */
-.news li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8em;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--line);
-  flex-wrap: wrap;
-}
-.news li:last-child {
-  border-bottom: none;
-}
-
-@media (max-width: 600px){
-  .news {
-    max-height: 400px;
-  }
-}
-/* ===== Fix: NEWS text scaling / link distortion on mobile ===== */
-.news li > span {
-  display: block;              /* ← inline-blockをblockに変更で高さ安定 */
-  flex: 1 1 auto;
-  min-width: 0;
-  line-height: 1.8;
-  word-break: normal;          /* ← keep-allを外すと英語＋日本語混在に自然 */
-  overflow-wrap: anywhere;     /* 長い単語だけ自動折返し */
-  font-size: 1em;              /* スマホの自動拡大を防ぐ */
-  -webkit-text-size-adjust: 100%; /* iOSの自動文字拡大防止 */
-}
-
-/* 強調・リンクの中でもフォントを固定 */
-.news li a, .news li em {
-  font-size: inherit !important;
-  line-height: inherit;
 }
